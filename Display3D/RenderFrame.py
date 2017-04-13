@@ -1,4 +1,4 @@
-from Display3D.Polygon import *
+from Display3D.polygon import Polygon
 import Display3D.util3D as util3D
 class RenderFrame:
     def __init__(self, perspective, location, normalVector):
@@ -31,20 +31,20 @@ class RenderFrame:
     def orderPolygons(self, polygonList):
         orderedPolygon = []
         polygonsToCheck = len(polygonList)
-        for i in range(polygonsToCheck):
+
+        while polygonList:
             largestDistance = 0
-            farthestPolygon = ()
+            farthestPolygon = None
             for polygon in polygonList:
                 centerPoint = util3D.getCenterOfPoly(polygon.points)
+                farthestDistanceToSide = util3D.getFarthestDistance(polygon, self.perspective.location)
                 distanceToSide = util3D.getDistance(centerPoint, self.perspective.location)
-                if abs(distanceToSide) > largestDistance:
+                average = (farthestDistanceToSide * 0 + distanceToSide)
+                if abs(average) > largestDistance:
                     largestDistance = distanceToSide
                     farthestPolygon = polygon
             orderedPolygon.append(farthestPolygon)
-            try:
-                polygonList.remove(farthestPolygon)
-            except:
-                pass
+            polygonList.remove(farthestPolygon)
         return orderedPolygon
 
     def getPolygons(self, objectList):

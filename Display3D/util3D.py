@@ -72,6 +72,12 @@ def dot_v3v3(v0, v1):
 
 
 def len_squared_v3(v0):
+    """
+    gets the dot product of a vector and itself
+
+    :param v0: the vector
+    :return: the dot product of v0 and v0
+    """
     return dot_v3v3(v0, v0)
 
 
@@ -207,6 +213,21 @@ def getCenterOfPoly(polygon):
     z = zSum / numOfPoints
     return (x, y, z)
 
+def getFarthestDistance(polygon, refPoint):
+    """
+    takes a list of 3D points and returns its center
+    using averaging
+
+    :param polygon: a list of points in 3D space
+    :param refPoint: the reference point
+    :rtype : returns the distance to the point that is farthest away from the reference
+    """
+    farthestDistance = 0
+    for point in polygon.points:
+        distance = getDistance(point, refPoint)
+        if distance > farthestDistance:
+            farthestDistance = distance
+    return farthestDistance
 
 def getDistance(point1, point2):
     """
